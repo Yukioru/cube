@@ -1,3 +1,3 @@
-# app
+# Cube
 
-Uses [ant.design](https://ant.design/)
+Listen on https://cube.band

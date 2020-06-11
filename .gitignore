@@ -1,0 +1,4 @@
+.env
+node_modules/
+app/public/assets
+app/public/cube.m3u

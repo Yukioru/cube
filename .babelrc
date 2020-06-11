@@ -1,0 +1,41 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry",
+        "corejs": {
+          "version": 3,
+          "proposals": true
+        },
+        "targets": {
+          "chrome": "58",
+          "ie": "11"
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-runtime",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@ant-design/icons",
+        "libraryDirectory": "es/icons",
+        "camel2DashComponentName": false
+      },
+      "@ant-design/icons"
+    ]
+  ]
+}

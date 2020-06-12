@@ -11,10 +11,10 @@ const clientRender = () => {
   );
 };
 
-const serverRender = ({ location, context }) => {
+const serverRender = ({ location, context, user }) => {
   return (
     <StaticRouter location={location} context={context}>
-      <App />
+      <App user={user} />
     </StaticRouter>
   );
 };

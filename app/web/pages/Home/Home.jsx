@@ -10,15 +10,15 @@ import * as Styles from './Home.styles';
 
 const Home = () => {
   const [state, setState] = useState({});
-  const socket = useContext(Context);
-
+  const { socket } = useContext(Context);
   useEffect(() => {
     if (socket) {
-      socket.on('meta', (data) => {
-        // console.log(data);
-        setState(data);
-      });
+      socket.emit('meta');
+      socket.on('meta', setState);
     }
+    return () => {
+      socket.off('meta');
+    };
   }, []);
 
   const { status, data } = state;

@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(Link)`
   width: 182px;
   height: 60px;
   display: flex;
   align-items: center;
   margin-left: 12px;
+  text-decoration: none;
 `;
 
 export const Icon = styled.div`

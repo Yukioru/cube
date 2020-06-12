@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
 import io from 'socket.io-client';
@@ -15,11 +15,11 @@ if (typeof window !== 'undefined') {
   });
 }
 
-const App = () => {
+const App = ({ user }) => {
   const appName = 'Cube Radio';
   return (
     <ThemeProvider theme={theme}>
-      <Context.Provider value={socket}>
+      <Context.Provider value={{ socket, user }}>
         {/* <div
           style={{
             position: 'fixed',

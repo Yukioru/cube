@@ -1,4 +1,4 @@
-const before = ({ helmet }) => `
+const before = ({ helmet, user }) => `
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -12,7 +12,7 @@ const before = ({ helmet }) => `
     ${helmet.link.toString()}
   </head>
   <body ${helmet.bodyAttributes.toString()}>
-    <div id="__app">
+    <div id="__app" data-user="${user ? encodeURIComponent(JSON.stringify(user)) : ''}">
 `.trim();
 
 const after = () => `

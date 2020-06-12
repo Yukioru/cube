@@ -4,7 +4,7 @@ import * as Styles from './DefaultLogo.styles';
 
 const DefaultLogo = () => {
   return (
-    <Styles.Wrapper>
+    <Styles.Wrapper to="/">
       <Styles.Title>
         C
         <Styles.Icon>

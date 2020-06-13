@@ -69,7 +69,12 @@ export const register = async (req, res) => {
 
 export const logout = async (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.json({
+    code: 200,
+    data: {
+      message: 'ok',
+    },
+  });
 };
 
 export const check = async (req, res) => {

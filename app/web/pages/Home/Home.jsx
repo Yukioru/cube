@@ -33,7 +33,7 @@ const Home = () => {
   const current = get(data, 'listeners', 0);
   const peak = get(data, 'peak', 0);
   const overlay = `
-    Сейчас: ${current}\nВсего: ${peak}
+    Сейчас: ${current}\nЗа всё время: ${peak}
   `.trim();
   const listeners = (
     <span>

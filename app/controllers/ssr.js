@@ -1,6 +1,7 @@
 import { renderToNodeStream } from 'react-dom/server';
 import { ServerStyleSheet } from 'styled-components'
 import omit from 'lodash.omit';
+import get from 'lodash.get';
 import { Helmet } from 'react-helmet';
 
 import { before, after } from '../utils/ssr-template';
@@ -10,11 +11,7 @@ export default (req, res) => {
   const context = {};
   const helmet = Helmet.renderStatic();
   const sheet = new ServerStyleSheet();
-  let user;
-  console.log('req.session', req.session);
-  if (req.user) {
-    user = omit(req.user, ['password']);
-  }
+  const user = get(req, 'session.passport.user', {});
 
   res.write(before({ helmet, user }));
   

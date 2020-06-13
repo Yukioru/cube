@@ -4,9 +4,10 @@ import { BrowserRouter, StaticRouter } from 'react-router-dom';
 import App from './App';
 
 const clientRender = () => {
+  const user = JSON.parse(decodeURIComponent(document.querySelector('#__app').dataset.user));
   return (
     <BrowserRouter>
-      <App />
+      <App user={user} />
     </BrowserRouter>
   );
 };

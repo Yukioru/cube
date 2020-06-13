@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 
-const Button = styled.button`
+const Button = styled.button.withConfig({
+  shouldForwardProp: e => !['block', 'shadow'].includes(e),
+})`
   min-width: 80px;
   outline: none;
   display: block;

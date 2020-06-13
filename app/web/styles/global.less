@@ -187,7 +187,52 @@ body {
   margin-left: 3rem !important;
 }
 
-
 #tooltip {
   padding: 6px 12px;
+}
+
+.rc-dropdown {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.rc-dropdown-menu {
+  background-color: #131c24;
+  border-radius: 0;
+  box-shadow: 0 4px 16px -6px #000000a8;
+  border: none;
+
+  > .rc-dropdown-menu-item-selected:after {
+    content: none;
+  }
+}
+
+.rc-dropdown-menu > .rc-dropdown-menu-item {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 14px;
+  color: #ecffff;
+  cursor: pointer;
+}
+
+.rc-dropdown-menu > .rc-dropdown-menu-item-divider {
+  background-color: #1f2b37;
+}
+
+.rc-dropdown-menu-item.link {
+  padding: 0;
+
+  > a {
+    display: block;
+    padding: 7px 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.rc-dropdown-menu > .rc-dropdown-menu-item:hover {
+  background-color: #212d39;
+}
+
+.rc-dropdown-menu > .rc-dropdown-menu-item-active,
+.rc-dropdown-menu > .rc-dropdown-menu-item-selected {
+  background-color: inherit;
 }

@@ -17,9 +17,24 @@ if (typeof window !== 'undefined') {
 
 const App = ({ user }) => {
   const appName = 'Cube Radio';
+
+  const setUser = async (values) => {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    }).then(e => e.json());
+    if (res.code === 200) {
+      document.querySelector('#__app').dataset.user = encodeURIComponent(JSON.stringify(res.data.user));
+      user = res.data.user;
+      window.location.pathname = '/';
+    }
+  }
   return (
     <ThemeProvider theme={theme}>
-      <Context.Provider value={{ socket, user }}>
+      <Context.Provider value={{ socket, user, setUser }}>
         {/* <div
           style={{
             position: 'fixed',

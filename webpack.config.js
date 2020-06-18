@@ -7,10 +7,10 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const production = process.env.NODE_ENV === 'production';
 
 const config = {
-  entry: './app/web/index.js',
+  entry: './app/web/index.ts',
   target: 'web',
   resolve: {
-    extensions: ['.jsx', '.js', '.less'],
+    extensions: ['.mjs', '.js', '.jsx', '.tsx', '.ts', '.less'],
   },
   output: {
     path: path.resolve(__dirname, 'app', 'public', 'assets'),
@@ -31,7 +31,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.m?jsx?$/,
+        test: /\.m?(j|t)sx?$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',

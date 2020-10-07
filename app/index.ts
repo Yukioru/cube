@@ -75,8 +75,13 @@ const metaSocket = async () => {
 };
 
 const listenerMeta = async () => {
-  await metaSocket();
-  setTimeout(listenerMeta, 1000);
+  try {
+    await metaSocket();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setTimeout(listenerMeta, 1000);
+  }
 };
 
 listenerMeta();

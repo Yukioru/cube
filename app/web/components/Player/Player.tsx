@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 
@@ -13,13 +13,14 @@ const { STREAM_URL = '[]' } = process.env;
 
 const Player: React.FC<PlayerProps> = ({ children, air }) => {
   const [volume, setStateVolume] = useState(0.6);
-  const [reload, setReload] = useState(true);
   const [playing, setPlaying] = useState(false);
-  const ref = useRef<HTMLAudioElement>(null);
+
+  const getAudioInstance = (): HTMLAudioElement => document.querySelector('#audio') as HTMLAudioElement;
 
   const setVolume = (volume: number): void => {
-    if (ref && ref.current) {
-      ref.current.volume = volume;
+    const instance = getAudioInstance();
+    if (instance) {
+      instance.volume = volume;
     }
     window.localStorage.setItem('cube:volume', String(volume));
     setStateVolume(volume);
@@ -37,25 +38,38 @@ const Player: React.FC<PlayerProps> = ({ children, air }) => {
     }
   }, []);
 
+  const play = () => {
+    const instance = getAudioInstance();
+    if (!instance) return;
+    instance.childNodes.forEach((child: any, index) => {
+      const sources = JSON.parse(STREAM_URL);
+      child.src = sources[index];
+    });
+    
+    instance.load();
+    instance.play();
+  }
+
+  const stop = () => {
+    const instance = getAudioInstance();
+    if (!instance) return;
+    instance.currentTime = 0;
+    instance.pause();
+    instance.childNodes.forEach((child: any, index) => {
+      child.src = null;
+    });
+  }
+
   const onPlay = () => {
     setVolume(getVolume());
     setPlaying(true);
-    if (ref.current) {
-      ref.current.play();
-    }
+    play();
   };
 
   const onStop = () => {
     setVolume(getVolume());
-    if (ref.current) {
-      ref.current.pause();
-      ref.current.currentTime = 0;
-    }
-    setReload(false);
-    setTimeout(() => {
-      setReload(true);
-      setPlaying(false);
-    }, 100)
+    stop();
+    setPlaying(false);
   };
 
 
@@ -80,17 +94,15 @@ const Player: React.FC<PlayerProps> = ({ children, air }) => {
           <SliderComponent value={volume} step={0.01} min={0} max={1} onChange={onChangeVolume} />
         </Styles.SliderWrapper>
       </Styles.Content>
-      {reload && (
-        <audio ref={ref} preload="none">
-          {JSON.parse(STREAM_URL).map((source: string) => {
-            const resRx = source.match(/\.(.{3,4})$/);
-            const [, type] = (resRx || []);
-            return (
-              <source key={type} src={source} type={`audio/${type}`} />
-            );
-          })}
-        </audio> 
-      )}
+      <audio id="audio" preload="none">
+        {JSON.parse(STREAM_URL).map((source: string) => {
+          const resRx = source.match(/\.(.{3,4})$/);
+          const [, type] = (resRx || []);
+          return (
+            <source key={type} src="" type={`audio/${type}`} />
+          );
+        })}
+      </audio> 
     </Styles.Wrapper>
   );
 };
